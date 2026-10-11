@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f3ec">
+  <title>Свадьба Дианы и Ильи</title>
+
+  <style>
+    :root {
+      --paper: #f7f3ec;
+      --ink: #353b32;
+      --green: #697861;
+      --muted: #77796e;
+      --line: #d9d2c5;
+      --white: #fffdf9;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.7;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 5% 8%, rgba(204, 211, 190, .26), transparent 23rem),
+        var(--paper);
+    }
+
+    section {
+      padding: 72px 26px;
+      text-align: center;
+    }
+
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 60px;
+      padding-bottom: 48px;
+      position: relative;
+    }
+
+    .eyebrow, .date, .label {
+      color: var(--green);
+      font-family: Arial, sans-serif;
+      font-size: .74rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .ornament {
+      color: var(--green);
+      font-size: 2rem;
+      margin: 18px 0 10px;
+    }
+
+    h1 {
+      margin: 4px 0;
+      font-size: clamp(3.1rem, 13vw, 6rem);
+      font-weight: 400;
+      line-height: 1.02;
+    }
+
+    .ampersand {
+      display: block;
+      color: var(--green);
+      font-size: .58em;
+      font-style: italic;
+      margin: 2px 0;
+    }
+
+    .hero-copy {
+      max-width: 330px;
+      margin: 24px auto 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .guest {
+      margin-top: 34px;
+      font-size: 1.15rem;
+      font-style: italic;
+    }
+
+    .date {
+      margin-top: 27px;
+      font-size: .9rem;
+      letter-spacing: .16em;
+    }
+
+    .scroll-note {
+      position: absolute;
+      bottom: 24px;
+      color: var(--muted);
+      font: .72rem Arial, sans-serif;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .scroll-note span {
+      display: block;
+      font-size: 1.4rem;
+      line-height: 1.2;
+    }
+
+    .section-inner {
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      margin: 0 0 20px;
+      color: var(--green);
+      font-size: clamp(2rem, 8vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .intro {
+      margin: 0 auto 28px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .story {
+      text-align: left;
+      font-size: 1.02rem;
+    }
+
+    .story p { margin: 0 0 16px; }
+
+    .timeline {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .event {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 15px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .event time {
+      color: var(--green);
+      font-size: 1.1rem;
+      white-space: nowrap;
+    }
+
+    .event p { margin: 0; }
+
+    .place {
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .map-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--green);
+      font: .82rem Arial, sans-serif;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .note-card {
+      margin-top: 24px;
+      padding: 22px 20px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 249, .55);
+    }
+
+    .note-card p { margin: 8px 0; }
+
+    .dress {
+      color: var(--green);
+      font-style: italic;
+    }
+
+    .rsvp {
+      padding-bottom: 86px;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 14px 23px;
+      border: 1px solid var(--green);
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--green);
+      font: .9rem Arial, sans-serif;
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+
+    .button:hover {
+      color: var(--green);
+      background: transparent;
+    }
+
+    .small {
+      margin: 16px auto 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .music-button {
+      position: fixed;
+      z-index: 2;
+      right: 16px;
+      bottom: 16px;
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--ink);
+      background: rgba(255, 253, 249, .94);
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 3px 15px rgba(40, 40, 30, .08);
+    }
+
+    footer {
+      padding: 0 20px 38px;
+      color: var(--muted);
+      font-size: .85rem;
+      text-align: center;
+    }
+
+    .fade {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .fade { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">Приглашение на свадьбу</div>
+      <div class="ornament">❧</div>
+
+      <h1>
+        Диана
+        <span class="ampersand">&amp;</span>
+        Илья
+      </h1>
+
+      <p class="hero-copy">
+        С радостью приглашаем вас разделить с нами один из самых важных и счастливых дней нашей жизни.
+      </p>
+
+      <div class="guest" id="guest">Дорогие гости</div>
+      <div class="date">6 ноября 2026 · Гродно</div>
+
+      <div class="scroll-note">Листайте вниз<span>⌄</span></div>
+    </section>
+
+    <section class="fade">
+      <div class="section-inner">
+        <div class="label">Наша история</div>
+        <h2>Как всё началось</h2>
+
+        <div class="story">
+          <p>
+            Однажды зимой 2024 года Илья собирался отправиться на лыжную прогулку
+            вместе с другом Андреем. Но у Андрея нашлась идея повеселее —
+            поездка на тюбинги в Коробчицы. Так случайный поворот планов привёл
+            Илью навстречу Диане.
+          </p>
+          <p>
+            Пока ребята стояли в очереди, Диана и её подруга Ира заметили их
+            и подумали, что вместе будет удобнее возвращаться в город. А после
+            катания, у гардероба, девушки предложили поехать всем вместе —
+            такси на четверых обходилось дешевле.
+          </p>
+          <p>
+            Дорога домой оказалась началом чего-то особенного: разговорились,
+            обменялись контактами, а вскоре были первый ресторан, первое кино
+            и всё новые встречи. Так из случайного знакомства родилась история,
+            которая привела нас к этому дню.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="fade">
+      <div class="section-inner">
+        <div class="label">Будем счастливы видеть вас</div>
+        <h2>День нашей свадьбы</h2>
+
+        <div class="timeline">
+          <div class="event">
+            <time>10:45</time>
+            <div>
+              <p>Сбор гостей в Доме росписи</p>
+              <p class="place">Гродно, площадь Тызенгауза, 2</p>
+              <a class="map-link"
+                 href="https://maps.google.com/?q=Гродно,+площадь+Тызенгауза,+2"
+                 target="_blank" rel="noopener">Открыть карту ↗</a>
+            </div>
+          </div>
+
+          <div class="event">
+            <time>11:00</time>
+            <div>
+              <p>Начало церемонии</p>
+            </div>
+          </div>
+
+          <div class="event">
+            <time>После</time>
+            <div>
+              <p>Фотосессия молодожёнов</p>
+              <p class="place">Пока мы будем фотографироваться, у вас будет немного времени отдохнуть.</p>
+            </div>
+          </div>
+
+          <div class="event">
+            <time>14:30</time>
+            <div>
+              <p>Встречаемся в ресторане «Белые Розы»</p>
+              <p class="place">Гродно, улица Дзержинского, 98</p>
+              <a class="map-link"
+                 href="https://maps.google.com/?q=Гродно,+улица+Дзержинского,+98"
+                 target="_blank" rel="noopener">Открыть карту ↗</a>
+            </div>
+          </div>
+
+          <div class="event">
+            <time>18:30–19:00</time>
+            <div>
+              <p>Завершение праздника </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="fade">
+      <div class="section-inner">
+        <div class="label">Несколько слов</div>
+        <h2>Пожелания</h2>
+
+        <div class="note-card">
+          <p>Возьмите с собой хорошее настроение, будьте счастливыми, весёлыми и инициативными!</p>
+          <p class="dress">
+            Белый цвет оставим невесте.<br>
+            Мужчинам разрешается выглядеть чуть хуже жениха.
+          </p>
+          <p>И, пожалуйста, не кричите «Горько!» — пусть этот день будет сладким.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="rsvp fade">
+      <div class="section-inner">
+        <div class="label">Очень ждём встречи</div>
+        <h2>Вы с нами?</h2>
+        <p class="intro">
+          Подтвердите, пожалуйста, своё присутствие — нам будет очень приятно знать, что вы разделите этот день с нами.
+        </p>
+        <a class="button" id="rsvpButton" href="#" target="_blank" rel="noopener">
+          Подтвердить присутствие
+        </a>
+        <p class="small">
+          По всем вопросам: Telegram @IlyaRed003
+        </p>
+      </div>
+    </section>
+
+    <footer>С любовью, Диана и Илья</footer>
+  </main>
+
+  <button class="music-button" id="musicButton" aria-label="Включить музыку" title="Включить музыку">
+    ♪
+  </button>
+
+  <script>
+    // Имя гостя задаётся в ссылке, например: ?name=Анна%20и%20Максим
+    const params = new URLSearchParams(window.location.search);
+    const guestName = params.get("name");
+
+    if (guestName) {
+      document.getElementById("guest").textContent = "Дорогие " + guestName;
+    }
+
+    // Кнопка открывает Telegram с заготовленным сообщением.
+    const message = guestName
+      ? `Здравствуйте! Подтверждаем присутствие на свадьбе Дианы и Ильи: ${guestName}.`
+      : "Здравствуйте! Подтверждаю присутствие на свадьбе Дианы и Ильи.";
+
+    document.getElementById("rsvpButton").href =
+      "https://t.me/IlyaRed003?text=" + encodeURIComponent(message);
+
+    // Плавное появление блоков при прокрутке.
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".fade").forEach((el) => observer.observe(el));
+
+    // // Нежная мелодия с мягкими аккордами.
+// Звук включается только после нажатия на кнопку.
+let audioContext;
+let melodyTimer;
+let playing = false;
+let step = 0;
+
+const musicButton = document.getElementById("musicButton");
+
+// Спокойная последовательность аккордов в тональности до мажор.
+const progression = [
+  [261.63, 329.63, 392.00], // C
+  [220.00, 261.63, 329.63], // Am
+  [174.61, 220.00, 261.63], // F
+  [196.00, 246.94, 293.66]  // G
+];
+
+const melody = [
+  523.25, 493.88, 392.00, 440.00,
+  523.25, 392.00, 329.63, 392.00,
+  440.00, 523.25, 587.33, 523.25,
+  440.00, 392.00, 329.63, 392.00
+];
+
+function playTone(frequency, startTime, duration, volume, type = "sine") {
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+
+  oscillator.type = type;
+  oscillator.frequency.setValueAtTime(frequency, startTime);
+
+  // Плавное вступление и затухание ноты.
+  gain.gain.setValueAtTime(0.0001, startTime);
+  gain.gain.exponentialRampToValueAtTime(volume, startTime + 0.12);
+  gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+
+  oscillator.start(startTime);
+  oscillator.stop(startTime + duration + 0.05);
+}
+
+function playMusicStep() {
+  const now = audioContext.currentTime;
+  const chord = progression[Math.floor(step / 4) % progression.length];
+  const melodyNote = melody[step % melody.length];
+
+  // Тихие протяжные ноты аккорда.
+  chord.forEach((frequency, index) => {
+    playTone(frequency, now, 1.45, 0.018 - index * 0.002);
+  });
+
+  // Мягкая мелодия поверх аккорда.
+  playTone(melodyNote, now + 0.04, 0.85, 0.045, "triangle");
+
+  step++;
+}
+
+musicButton.addEventListener("click", async () => {
+  if (!audioContext) {
+    audioContext = new (
+      window.AudioContext || window.webkitAudioContext
+    )();
+  }
+
+  if (audioContext.state === "suspended") {
+    await audioContext.resume();
+  }
+
+  if (playing) {
+    clearInterval(melodyTimer);
+    playing = false;
+    musicButton.textContent = "♪";
+    musicButton.setAttribute("aria-label", "Включить музыку");
+  } else {
+    playMusicStep();
+    melodyTimer = setInterval(playMusicStep, 850);
+    playing = true;
+    musicButton.textContent = "Ⅱ";
+    musicButton.setAttribute("aria-label", "Выключить музыку");
+  }
+});
+
+  </script>
+</body>
+</html>
+
